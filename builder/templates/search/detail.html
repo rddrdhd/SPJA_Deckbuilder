@@ -1,0 +1,23 @@
+<html>
+
+
+ {% extends "base.html" %}
+ {% block content %}
+
+ <h4>{{card_data.name}}</h4>
+ <img src="{{card_data.imageUrl}}" alt="{{card_data.name}}'s image did not found" align="right" />
+ </p>
+ <ul>
+ {% for  attribute in card_data %}
+     <li>{{attribute}} :  </li>
+ {%endfor%}
+ </ul>
+ <br><br><br>
+ {% endblock %}
+</html>
+
+
+
+
+
+

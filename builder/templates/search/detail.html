@@ -8,8 +8,18 @@
  <img src="{{card_data.imageUrl}}" alt="{{card_data.name}}'s image did not found" align="right" />
  </p>
  <ul>
- {% for attribute, value in card_data.items %}
-     <li>{{attribute}} : {{value}} </li>
+  {% for key, value in card_data.items %}
+   {% if key == 'text' %}
+     <li><strong>{{key}}</strong> : <p>{{value}}</p> </li>
+   {% elif key == 'colors' or key == 'types' or key == 'colorIdentity' %}
+     <li><strong>{{key}}</strong> :
+                                      {% for stuff in value.items %}<li>{{stuff}}</li>{%endfor%} </li>
+
+
+
+  {% else %}
+     <li><strong>{{key}}</strong> : {{value}} </li>
+  {% endif %}
  {%endfor%}
  </ul>
  <br><br><br>

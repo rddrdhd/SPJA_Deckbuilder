@@ -28,7 +28,8 @@ def builder(request):
     })
     """
 
-
+# {% elif key == 'imageUrl' or key == 'originalText' or key == 'id' %}
+# {% expr ['imageUrl', 'originalText', 'id'] as idontcare %}
 def result(request):
     q = request.POST['q']
     response = requests.get('https://api.magicthegathering.io/v1/cards?name=%s' % q)

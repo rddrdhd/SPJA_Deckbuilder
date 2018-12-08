@@ -8,8 +8,8 @@
  <img src="{{card_data.imageUrl}}" alt="{{card_data.name}}'s image did not found" align="right" />
  </p>
  <ul>
- {% for  attribute in card_data %}
-     <li>{{attribute}} :  </li>
+ {% for attribute, value in card_data.items %}
+     <li>{{attribute}} : {{value}} </li>
  {%endfor%}
  </ul>
  <br><br><br>

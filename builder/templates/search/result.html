@@ -1,17 +1,23 @@
 {% extends "base.html" %}
 {% block content %}
-
- results for '{{q}}'
- <br>
-<ul>
-{% for card in cards_data %}
- <a href="{% url 'builder:detail' card.id %}">
-     <li>{{card.name}}</a> from {{card.setName}} set</li>
-
-
-{% endfor %}
-    </ul> <br>
- <br><br>
+<table>
+    <tr>
+        <th align="left">
+            <ul>
+                results for '{{q}}'
+                <br>
+                <br>
+                <br>
+                {% for card in cards_data %}
+                <a href="{% url 'builder:detail' card.id %}">
+                    <li>{{card.name}}</a> from {{card.setName}} set</li>
+                {% endfor %}
+            </ul>
+        </th>
+    </tr>
+</table>
 {% endblock %}
+
+
 
 

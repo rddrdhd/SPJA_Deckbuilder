@@ -1,30 +1,44 @@
-<html>
-
-
  {% extends "base.html" %}
  {% block content %}
+ <table>
 
- <h4>{{card_data.name}}</h4>
- <img src="{{card_data.imageUrl}}" alt="{{card_data.name}}'s image did not found" align="right" />
- </p>
- <ul>
-  {% for key, value in card_data.items %}
-   {% if key == 'text' %}
-     <li><strong>{{key}}</strong> : <p>{{value}}</p> </li>
-   {% elif key == 'colors' or key == 'types' or key == 'colorIdentity' %}
-     <li><strong>{{key}}</strong> :
-                                      {% for stuff in value.items %}<li>{{stuff}}</li>{%endfor%} </li>
+    <col width="70%">
+    <col width="30%">
+     <tr>
+         <th align="left">
+             <h4>{{card_data.name}}</h4>
+             <ul>
+                 {% for key, value in card_data.items %}
+                    {% if key == 'text' or key == 'flavor' %}
+                        <li><strong>{{key}}</strong> : <p>{{value}}</p> </li>
+                    {% elif key == 'id' or key == 'legalities' or key == 'printings' or key == 'originalText' or key == 'multiverseid' or key == 'imageUrl' or key == 'set' or key == 'rulings' or key == 'originalType' or key == 'layout' or key == 'originalType' or key == 'types' or key == 'subTypes' or key == 'foreignNames' %}
+
+                    {% else %}
+                             <li><strong>{{key}}</strong> : {{value}} </li>
+                    {% endif %}
+                 {%endfor%}
+             </ul>
+
+         </th>
+         <th style="vertical-align: top;">
+             <a href="/">
+                 <button>Add to my deck</button>
+             </a>
+              <img src="{{card_data.imageUrl}}" alt="{{card_data.name}}'s image did not found" />
+         </th>
 
 
 
-  {% else %}
-     <li><strong>{{key}}</strong> : {{value}} </li>
-  {% endif %}
- {%endfor%}
- </ul>
  <br><br><br>
+
+
+
+     </tr>
+
+ </table>
+
+
  {% endblock %}
-</html>
 
 
 

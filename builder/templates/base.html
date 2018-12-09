@@ -1,23 +1,41 @@
-
-
-
 <html>
-  <head></head>
-  <body style="width: 70%; height: 70%; background-color:060606;"
-  text=F6F6F6 link="A6A6A6" vlink="666666">
+  <body style="width: 98%; height: 100%; background-color:161616;"
+  text=F6F6F6 link="A6A6A6" vlink="666666" alink="FFFFFF">
+    <div>
+        <table style="width:100%">
+            <col width="20%">
+            <col width="80%">
+            <tr>
+                <th colspan="2">
+
+                    <a href="{% url 'builder:index'%}">
+                        <h1> not DECKBUILDER yet </h1>
+                    </a>
+                    <h3> Magic: The Gathering </h3>
+                </th>
+            </tr>
+            <tr>
+                <th style="vertical-align: top;">
+                    <br>
+                    <br>
+                    <a href="/search">
+                        <button>Search cards</button>
+                    </a>
+                    <br>
+                    <br>
+                    <a href="/deck">
+                    <button type="submit">View my deck</button>
+                    </a>
+                </th>
+                <th style="vertical-align: middle;">
+                    {% block content %}
 
 
 
-    <div style="top: 6%; left: 20%; position: relative;">
-        <h1> not DECKBUILDER yet </h1>
-     <h2>Magic: The Gathering</h2>
-        <br>
-
- {% block content %}
-{% endblock %}
+                    {% endblock %}
+                </th>
+            </tr>
+        </table>
     </div>
-
   </body>
-
-
 </html>

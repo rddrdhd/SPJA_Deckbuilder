@@ -1,6 +1,6 @@
 from django.db import models
 
-
+"""
 class User(models.Model):
     username = models.CharField(max_length=50)
     email = models.CharField(max_length=150)
@@ -9,6 +9,7 @@ class User(models.Model):
     def __str__(self):
         return '%s, %s' % (self.username, self.email)
 
+"""
 
 class Deck(models.Model):
     deck_name = models.CharField(max_length=50) #string

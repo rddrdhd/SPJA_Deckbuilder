@@ -9,24 +9,13 @@ def builder(request):
     geodata = response.json()
     #card = Card.where(name='avacyn').all()
     """
-    response = requests.get('https://builder.magicthegathering.io/v1/cards/439390')
-    geodata = response.json()
-
+    response = 'Hello'
     # c = Card(name=geodata['name'], cmc=geodata['cmc'], rarity=geodata['rarity'], text=geodata['text'])
-    return render(request, 'builder.html', {'x': geodata})  # , {'card': c})
+    return render(request, 'builder.html', response)  # , {'card': c})
 
-    """
-    return render(request, 'builder/builder.html', {
-        'name': geodata['name'],
-        'cmc': geodata['cmc'],
-        'type': geodata['type'],
-        'rarity': geodata['rarity'],
-        'number': geodata['number'],
-        'artist': geodata['artist'],
-        'imageUrl': geodata['imageUrl'],
-        #multiverseid -
-    })
-    """
+
+def index(request):
+    return render(request, 'index.html')
 
 # {% elif key == 'imageUrl' or key == 'originalText' or key == 'id' %}
 # {% expr ['imageUrl', 'originalText', 'id'] as idontcare %}
@@ -47,13 +36,12 @@ def detail(request, id):
     url_img = 'http://gatherer.wizards.com/Handlers/Image.ashx?id=%s&type=card' % id
     return render(request, 'search/detail.html', {'card_data':card_data['card'], 'url_img':url_img})
 
-
+def deck(request):
+    return render(request, 'deck.html')
 def search(request):
     return render(request, 'search/index.html')
 
 
-def index(request):
-    return "Hello world!"
 
 
 

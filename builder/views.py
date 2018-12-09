@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 import requests
 from .models import Deck, Card
-
+from django.shortcuts import get_object_or_404
 
 def builder(request):
     """
@@ -39,25 +39,36 @@ def search(request):
     return render(request, 'search/index.html')
 
 def add_to_deck(request, id):
+    #deck = Deck(deck_name='MahDeck')
+    #deck.save()
+    decks = Deck.objects.all()
+    return render(request, 'add_card/to_existing.html', {'card_id':id, 'decks':decks})
+
+def gimme_card_data_by_id(id):
     response = requests.get('https://api.magicthegathering.io/v1/cards/%s' % id)
     card_data = response.json()
-    return render(request, 'add_card/to_existing.html', {'card_data':card_data['card']})
-
+    return card_data['card']
 
 def create_deck(request, id):
-    response = requests.get('https://api.magicthegathering.io/v1/cards/%s' % id)
-    card_data = response.json()
-    return render(request, 'add_card/to_new.html', {'card_data':card_data['card']})
+    return render(request, 'add_card/to_new.html', {'card_id':id})
 
 def create_deck_submit(request):
-    response = requests.get('https://api.magicthegathering.io/v1/cards/%s' % id)
-    card_data = response.json()
+
     c_id = request.POST['card_id']
     d_name = request.POST['deck_name']
-    card = Card(id=c_id)
-    card.save()
+
+    card_data = gimme_card_data_by_id(c_id)
+
+
     deck = Deck(deck_name=d_name)
     deck.save()
+
+    card = Card(name = card_data.name, cmc = card_data.cmc, rarity = card_data.rarity, text = card_data.text, imgUrl = card_data.imageUrl)
+    card.save()
+
+    deck.
+    #card = Card()
+    #card.save()
     return redirect('deck')
 
 

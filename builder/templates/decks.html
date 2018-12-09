@@ -1,0 +1,13 @@
+ {% extends "base.html" %}
+ {% block content %}
+ Here are your decks:<br><br>
+ <ul>
+ {% for deck in decks %}
+ <li>{{deck.deck_name}}</li>
+
+ {% endfor %}
+ </ul>
+ {% endblock %}
+
+
+

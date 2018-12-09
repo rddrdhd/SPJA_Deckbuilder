@@ -1,6 +1,6 @@
  {% extends "base.html" %}
  {% block content %}
- <form action="" method="post">
+ <form action="{% url 'builder:create_deck_submit' card_id %}" method="post">
   {% csrf_token %}
   <br><br><br>
   Enter deck name: <input name="deck_name"/><br><br><br>

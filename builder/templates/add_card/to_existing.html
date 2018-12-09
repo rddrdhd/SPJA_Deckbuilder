@@ -4,17 +4,18 @@
 
  <h3> Add card to existing deck </h3>
 
- <form action="{% url 'builder:create_deck_submit' %}" method="post">
+ <form action="{% url 'builder:add_to_deck_submit' card_id %}" method="post">
 
-  Card ID: <input name="card_id" value="{{card_id}}"/><br><br><br>
 
-<select name="deck" size="1">
+<select name="deck_id" size="1">
  {% for deck in decks %}
  <option value="{{deck.id}}">{{deck.deck_name}}</option>
+  {% endfor %}
 </select>
+  {% csrf_token %}
   <input type="submit" value="Submit">
  </form>
- {% endfor %}
+
  {% endblock %}
 
 

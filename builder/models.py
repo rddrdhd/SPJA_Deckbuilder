@@ -21,6 +21,9 @@ class Card(models.Model):
     text = models.CharField(max_length=1000, null = True) #string
     imgUrl = models.CharField(max_length=1000)
 
+    def __str__(self):
+        return '%s, %s' % (self.name, self.cmc)
+
 
 class Deck(models.Model):
     deck_name = models.CharField(max_length=50) #string
@@ -30,24 +33,3 @@ class Deck(models.Model):
 
         return self.deck_name
 
-
-
-
-    """
-    COMMON = 'CO'
-    UNCOMMON = 'UC'
-    RARE = 'RA'
-    MYTHIC_RARE = 'MR'
-    SPECIAL = 'SP'
-    BASIC_LAND = 'BL'
-    RARITY_CHOICES=(
-        (COMMON, 'common'),
-        (UNCOMMON, 'uncommon'),
-        (RARE, 'common'),
-        (MYTHIC_RARE, 'common'),
-        (SPECIAL, 'common'),
-        (BASIC_LAND, 'common'),
-    )
-    """
-    def __str__(self):
-        return '%s, %s' % (self.name, self.cmc)

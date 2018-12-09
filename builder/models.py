@@ -14,6 +14,7 @@ class User(models.Model):
 
 
 class Card(models.Model):
+    #id = models.CharField(max_length=100)
     name = models.CharField(max_length=150) #string
     cmc = models.IntegerField() #int - converted mana cost
     rarity = models.CharField(max_length=20) #string

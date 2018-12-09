@@ -11,14 +11,11 @@ def builder(request):
     """
     response = 'Hello'
     # c = Card(name=geodata['name'], cmc=geodata['cmc'], rarity=geodata['rarity'], text=geodata['text'])
-    return render(request, 'builder.html', response)  # , {'card': c})
+    return render(request, 'builder.html', response)
 
 
 def index(request):
     return render(request, 'index.html')
-
-# {% elif key == 'imageUrl' or key == 'originalText' or key == 'id' %}
-# {% expr ['imageUrl', 'originalText', 'id'] as idontcare %}
 
 def result(request):
     q = request.POST['q']
@@ -42,17 +39,24 @@ def search(request):
     return render(request, 'search/index.html')
 
 def add_to_deck(request, id):
-    return render(request, 'add_card/to_existing.html', {'card_id':id})
+    response = requests.get('https://api.magicthegathering.io/v1/cards/%s' % id)
+    card_data = response.json()
+    return render(request, 'add_card/to_existing.html', {'card_data':card_data['card']})
 
 
 def create_deck(request, id):
-    return render(request, 'add_card/to_new.html', {'card_id':id})
+    response = requests.get('https://api.magicthegathering.io/v1/cards/%s' % id)
+    card_data = response.json()
+    return render(request, 'add_card/to_new.html', {'card_data':card_data['card']})
 
 def create_deck_submit(request):
-    card_id = request.POST['card_id']
-    deck_name = request.POST['deck_name']
-    deck = Deck()
-    deck.deck_name = deck_name
+    response = requests.get('https://api.magicthegathering.io/v1/cards/%s' % id)
+    card_data = response.json()
+    c_id = request.POST['card_id']
+    d_name = request.POST['deck_name']
+    card = Card(id=c_id)
+    card.save()
+    deck = Deck(deck_name=d_name)
     deck.save()
     return redirect('deck')
 

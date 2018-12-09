@@ -1,6 +1,15 @@
  {% extends "base.html" %}
  {% block content %}
- Here is adding to existing deck
+
+ <h3> Add card to existing deck </h3>
+ <form action="{% url 'builder:create_deck_submit' %}" methond="post">
+<select name="deck" size="1">
+ {% for deck in decks %}
+ <option value="{{deck.name}}">{{deck.name}}</option>
+</select>
+  <input type="submit" value="Submit">
+ </form>
+ {% endfor %}
  {% endblock %}
 
 

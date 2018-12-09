@@ -1,0 +1,14 @@
+ {% extends "base.html" %}
+ {% block content %}
+ <form action="" method="post">
+  {% csrf_token %}
+  <input name="deck_name"/>
+  <input name="card_id" value="{{card_id}}"/>
+
+     <button type="submit">Create deck & add card</button>
+ </form>
+adding to new dekc
+ {% endblock %}
+
+
+

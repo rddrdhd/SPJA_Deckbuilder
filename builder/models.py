@@ -1,5 +1,6 @@
 from django.db import models
 
+
 """
 class User(models.Model):
     username = models.CharField(max_length=50)
@@ -11,22 +12,26 @@ class User(models.Model):
 
 """
 
-class Deck(models.Model):
-    deck_name = models.CharField(max_length=50) #string
-    deck_player = models.ForeignKey(User, on_delete=models.CASCADE) # Who is the owner of deck?
-
-    def __str__(self):
-
-        return '%s, %s' % (self.deck_name, self.deck_player)
-
 
 class Card(models.Model):
-    #card_number = models.CharField() #string
     name = models.CharField(max_length=150) #string
     cmc = models.IntegerField() #int - converted mana cost
     rarity = models.CharField(max_length=20) #string
     text = models.CharField(max_length=1000) #string
-    card_deck = models.ForeignKey(Deck, on_delete=models.DO_NOTHING) # Is the card in some deck?
+    imgUrl = models.CharField(max_length=1000)
+
+
+class Deck(models.Model):
+    deck_name = models.CharField(max_length=50) #string
+    cards = models.ManyToManyField(Card)
+
+    def __str__(self):
+
+        return self.deck_name
+
+
+
+
     """
     COMMON = 'CO'
     UNCOMMON = 'UC'

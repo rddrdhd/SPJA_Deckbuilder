@@ -2,9 +2,7 @@
  {% block content %}
 Deck no. {{deck.id}}, {{deck.deck_name}}<br><br>
  {% for card in deck.cards.all %}
- {{card.name}}<br>
+ <a href="{% url 'builder:detail' card.card_id %}">
+              <li>{{card.name}}</li></a>
  {% endfor %}
  {% endblock %}
-
-
-

@@ -2,13 +2,13 @@ from django.db import models
 
 
 """
-class User(models.Model):
-    username = models.CharField(max_length=50)
+class Player(models.Model):
+    login = models.CharField(max_length=50)
     email = models.CharField(max_length=150)
     registered_at = models.DateTimeField(auto_now_add=True) #when creating player
 
     def __str__(self):
-        return '%s, %s' % (self.username, self.email)
+        return '%s, %s' % (self.login, self.email)
 
 """
 
@@ -22,7 +22,7 @@ class Card(models.Model):
     imgUrl = models.CharField(max_length=1000)
 
     def __str__(self):
-        return '%s, %s' % (self.name, self.cmc)
+        return '%s, {%s}' % (self.name, self.cmc)
 
 
 class Deck(models.Model):

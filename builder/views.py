@@ -24,7 +24,7 @@ def create_card_return(card_id):
 
 
 # --------------------------------   VIEWS
-
+# TODO: create_card_return doesnt work ?????
 # TODO: Delete card from deck
 # TODO: Delete deck and his cards (cascade?)
 # TODO: Player (login, topic, OneToManyFiled  decks)

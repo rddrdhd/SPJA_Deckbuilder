@@ -1,6 +1,6 @@
  {% extends "base.html" %}
  {% block content %}
-
+<br><br><br>
 <form action="{% url 'builder:result' %}" method="post">
     {% csrf_token %}
   <input name="q"/>

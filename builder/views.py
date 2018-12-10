@@ -25,6 +25,9 @@ def create_card_return(card_id):
 
 # --------------------------------   VIEWS
 
+# TODO: Delete card from deck
+# TODO: Delete deck and his cards (cascade?)
+# TODO: Player (login, topic, OneToManyFiled  decks)
 # Main page
 def index(request):
     return render(request, 'index.html')

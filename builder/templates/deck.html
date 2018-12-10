@@ -1,6 +1,9 @@
  {% extends "base.html" %}
  {% block content %}
- your deck!
+Deck no. {{deck.id}}, {{deck.deck_name}}<br><br>
+ {% for card in deck.cards.all %}
+ {{card.name}}<br>
+ {% endfor %}
  {% endblock %}
 
 

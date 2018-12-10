@@ -38,8 +38,8 @@ def decks(request):
     return render(request, 'decks.html', {'decks': decks})
 
 def deck(request, deck_id):
-    cards = Deck[deck_id].cards
-    return render(request, 'deck.html', )
+    deck = Deck.objects.get(id=deck_id)
+    return render(request, 'deck.html', {'deck': deck})
 
 def search(request):
     return render(request, 'search/index.html')

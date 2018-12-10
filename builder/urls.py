@@ -11,7 +11,7 @@ urlpatterns = [
 
     path('search/result/<str:id>', views.detail, name='detail'),
     path('decks/', views.decks, name='decks'),
-    path('decks/<int:deck_id>', views.deck, name='deck'),
+    path('deck/<int:deck_id>', views.deck, name='deck'),
     path('search/result/create_deck_submit/<str:card_id>', views.create_deck_submit, name='create_deck_submit'),
     path('search/result/add_to_deck_submit/<str:card_id>', views.add_to_deck_submit, name='add_to_deck_submit'),
 

@@ -3,7 +3,8 @@
  Here are your decks:<br><br>
  <ul>
  {% for deck in decks %}
- <li>{{deck.deck_name}}</li>
+  <a href="{% url 'builder:deck' deck.id %}">
+ <li>{{deck.deck_name}}</li></a>
 
  {% endfor %}
  </ul>

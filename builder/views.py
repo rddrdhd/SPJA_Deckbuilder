@@ -61,7 +61,7 @@ def add_to_deck_submit(request, card_id):
 
     deck = get_object_or_404(Deck, pk=deck_id)
     card_data = gimme_card_data_by_id(card_id)
-    card = Card(name=card_data['name'], cmc=card_data['cmc'], rarity=card_data['rarity'], text=card_data['text'],
+    card = Card(card_id = card_data['id'], name=card_data['name'], cmc=card_data['cmc'], rarity=card_data['rarity'], text=card_data['text'],
                 imgUrl=card_data['imageUrl'])
     card.save()
     deck.cards.add(card)
@@ -83,7 +83,7 @@ def create_deck_submit(request, card_id):
     deck = Deck(deck_name=d_name)
     deck.save()
 
-    card = Card(name=card_data['name'], cmc=card_data['cmc'], rarity=card_data['rarity'], text=card_data['text'],
+    card = Card(card_id = card_data['id'], name=card_data['name'], cmc=card_data['cmc'], rarity=card_data['rarity'], text=card_data['text'],
                 imgUrl=card_data['imageUrl'])
     card.save()
 

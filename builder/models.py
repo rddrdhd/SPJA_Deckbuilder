@@ -7,14 +7,15 @@ class Player(models.Model):
     email = models.CharField(max_length=150)
     registered_at = models.DateTimeField(auto_now_add=True)
 
+    def get_decks(self):
+        return Deck.objects.filter(owner = self)
+
     def __str__(self):
         return '%s, %s' % (self.login, self.email)
 
 
 class Deck(models.Model):
-    deck_name = models.CharField(max_length=50) #string
-    #cards = models.ManyToManyField(Card, null = True)
-
+    deck_name = models.CharField(max_length=50)
     owner = models.ForeignKey(Player, on_delete=models.CASCADE)
 
     def get_cards(self):

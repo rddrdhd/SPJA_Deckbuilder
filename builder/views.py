@@ -67,7 +67,7 @@ def decks(request):
 # Detail of deck
 def deck(request, deck_id):
     d = Deck.objects.get(id=deck_id)
-    c = Card.objects.filter(deck=d)
+    c = d.get_cards()#Card.objects.filter(deck=d)
     return render(request, 'deck.html', {'deck': d, 'cards':c})
 
 
@@ -117,5 +117,6 @@ def players(request):
 
 def player(request, player_id):
     player = Player.objects.get(pk=player_id)
-    return render(request, 'player.html', {'player': player})
+    decks = player.get_decks()
+    return render(request, 'player.html', {'player': player, 'decks':decks})
 

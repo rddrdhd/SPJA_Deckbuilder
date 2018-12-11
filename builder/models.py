@@ -27,7 +27,7 @@ class Card(models.Model):
 
 class Deck(models.Model):
     deck_name = models.CharField(max_length=50) #string
-    cards = models.ManyToManyField(Card)
+    cards = models.ManyToManyField(Card, null = True)
 
     def __str__(self):
 

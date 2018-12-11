@@ -100,9 +100,11 @@ def create_deck_submit(request, card_id):
     d.cards.add(card)
     return HttpResponseRedirect(reverse('builder:decks'))
 
+def delete_deck(request,id):
+    Deck.objects.filter(id=id).delete()
+    return HttpResponseRedirect(reverse('builder:decks'))
+
 def delete_card(request, id):
-    #d = get_object_or_404(Deck, request.POST['deck_id'])
-    #d.cards.objects.filter(card_id=id).delete()
     Card.objects.filter(id= id).delete()
-    return HttpResponseRedirect(reverse('builder:deck'))
+    return HttpResponseRedirect(reverse('builder:decks'))
 

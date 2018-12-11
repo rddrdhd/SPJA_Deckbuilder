@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect
 import requests
 from django.urls import reverse
-from .models import Deck, Card
+from .models import Deck, Card, Player
 from django.shortcuts import get_object_or_404
 
 
@@ -107,4 +107,12 @@ def delete_deck(request,id):
 def delete_card(request, id):
     Card.objects.filter(id= id).delete()
     return HttpResponseRedirect(reverse('builder:decks'))
+
+def players(request):
+    players = Player.objects.all()
+    return render(request, 'players.html', {'players': players})
+
+def player(request, player_id):
+    player = Player.objects.filter(id=player_id)
+    return render(request, 'player.html', {'player': player})
 

@@ -1,0 +1,18 @@
+ {% extends "base.html" %}
+ {% block content %}
+{{player}} hello<br><br>
+ <table>
+  <tr>
+   <th>
+     {% for deck in player.decks.objects.all %}
+        <li>
+         {{deck.deck_name}}
+        </li>
+    {% endfor %}
+
+   </th>
+  </tr>
+ </table>
+
+ {% endblock %}
+

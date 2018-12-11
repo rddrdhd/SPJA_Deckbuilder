@@ -10,6 +10,9 @@ urlpatterns = [
     path('search/result/add_to_deck/<str:card_id>', views.add_to_deck, name='add_to_deck'),
     path('search/result/create_deck/<str:card_id>', views.create_deck, name='create_deck'),
 
+    path('players/', views.players, name='players'),
+    path('player/<int:player_id>', views.player, name='player'),
+
     path('decks/', views.decks, name='decks'),
     path('deck/<int:deck_id>', views.deck, name='deck'),
 

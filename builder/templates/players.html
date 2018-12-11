@@ -1,0 +1,18 @@
+ {% extends "base.html" %}
+ {% block content %}<br>
+ Here are players:<br><br>
+ <ul>
+
+ <span style="font-weight:normal">
+ {% for player in players %}<li>
+  <a href="{% url 'builder:player' player.id %}" style="text-decoration: none" >{{player.login}}</a><span style="font-weight:normal"> ({{player.email}}) </span>
+
+
+</li>
+ {% endfor %}
+ </span>
+ </ul>
+ {% endblock %}
+
+
+

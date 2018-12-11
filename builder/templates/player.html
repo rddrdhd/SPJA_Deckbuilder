@@ -6,7 +6,10 @@
    <th>
      {% for deck in decks %}
         <li>
-         {{deck.deck_name}}
+         <a href="{% url 'builder:deck' deck.id %}" style="text-decoration: none">
+   <strong>{{deck.deck_name}}</strong></a>  -
+   <a href="{% url 'builder:delete_deck' deck.id %}" style="text-decoration: none" ><span style="font-weight:normal">☠</span></a>
+
         </li>
     {% endfor %}
 

@@ -1,0 +1,14 @@
+ {% extends "base.html" %}
+ {% block content %}
+<form action="{% url 'builder:new_player_submit' %}" method="post">
+    {% csrf_token %}
+ Login:
+  <input name="new_login"/><br><br>
+Email:
+ <input name="new_email"/><br><br>
+     <button type="submit">Create new player</button>
+ </form>
+ {% endblock %}
+
+
+

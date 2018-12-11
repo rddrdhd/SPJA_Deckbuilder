@@ -5,12 +5,17 @@
 
  <span style="font-weight:normal">
  {% for player in players %}<li>
-  <a href="{% url 'builder:player' player.id %}" style="text-decoration: none" >{{player.login}}</a><span style="font-weight:normal"> ({{player.email}}) </span>
+  <a href="{% url 'builder:player' player.id %}" style="text-decoration: none" ><strong>{{player.login}}</strong></a><span style="font-weight:normal"> ({{player.email}}) </span>
 
 
 </li>
  {% endfor %}
  </span>
+  <br>
+                    <br>
+                    <a href="/new_player">
+                    <button type="submit">Create new player</button>
+                    </a>
  </ul>
  {% endblock %}
 

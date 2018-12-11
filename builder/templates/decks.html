@@ -6,7 +6,7 @@
  <span style="font-weight:normal">
  {% for deck in decks %}<li>
   <a href="{% url 'builder:deck' deck.id %}" style="text-decoration: none">
-   <strong>{{deck.deck_name}}</strong></a>  -  {{deck.cards.all.count}} {%if deck.cards.all.count == 1 %}card{%else%}cards{%endif%} -
+   <strong>{{deck.deck_name}}</strong></a> from {{deck.owner.login}}
    <a href="{% url 'builder:delete_deck' deck.id %}" style="text-decoration: none" ><span style="font-weight:normal">☠</span></a>
 
 

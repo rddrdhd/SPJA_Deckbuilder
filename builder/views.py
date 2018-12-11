@@ -11,14 +11,14 @@ from django.shortcuts import get_object_or_404
 def gimme_card_data_by_id(card_id):
     response = requests.get('https://api.magicthegathering.io/v1/cards/%s' % card_id)
     card_data = response.json()
-    return card_data['card'] #Bc its returning {"card":{...stuffiwant...}}
+    return card_data['card']  # Bc its returning {"card":{...stuffiwant...}}
 
 
 # from card_id it adds card into DB & returns card
 def create_card_return(card_id, deck_id):
     deck = get_object_or_404(Deck, pk=deck_id)
     c_data = gimme_card_data_by_id(card_id)
-    if 'text' in c_data:
+    if 'text' in c_data: #only lands do not have text - F them
         card = Card(card_id=c_data['id'], name=c_data['name'], cmc=c_data['cmc'], rarity=c_data['rarity'],
                     text=c_data['text'], imgUrl=c_data['imageUrl'], deck=deck)
     else:
@@ -67,8 +67,8 @@ def decks(request):
 # Detail of deck
 def deck(request, deck_id):
     d = Deck.objects.get(id=deck_id)
-    c = d.get_cards()#Card.objects.filter(deck=d)
-    return render(request, 'deck.html', {'deck': d, 'cards':c})
+    c = d.get_cards()
+    return render(request, 'deck.html', {'deck': d, 'cards': c})
 
 
 # Leads to 'add card to existing deck' and sending card_id & all decks
@@ -93,30 +93,46 @@ def create_deck(request, card_id):
     players = Player.objects.all()
     return render(request, 'add_card/to_new.html', {'card_id': card_id, 'players': players})
 
+
 # Saving the new deck from 'add card to new deck'
 def create_deck_submit(request, card_id):
     p_id = request.POST['player_id']
     p = Player.objects.get(pk=p_id)
     d_name = request.POST['deck_name']
-    d = Deck(deck_name=d_name, owner = p)
+    d = Deck(deck_name=d_name, owner=p)
     d.save()
     create_card_return(card_id, d.id)
     return HttpResponseRedirect(reverse('builder:decks'))
 
-def delete_deck(request,id):
+
+def delete_deck(request, id):
     Deck.objects.filter(id=id).delete()
     return HttpResponseRedirect(reverse('builder:decks'))
 
+
 def delete_card(request, id):
-    Card.objects.filter(id= id).delete()
+    Card.objects.filter(id=id).delete()
     return HttpResponseRedirect(reverse('builder:decks'))
+
 
 def players(request):
     players = Player.objects.all()
     return render(request, 'players.html', {'players': players})
 
+
 def player(request, player_id):
     player = Player.objects.get(pk=player_id)
     decks = player.get_decks()
-    return render(request, 'player.html', {'player': player, 'decks':decks})
+    return render(request, 'player.html', {'player': player, 'decks': decks})
 
+
+def new_player(request):
+    return render(request, 'new_player.html')
+
+
+def new_player_submit(request):
+    new_login = request.POST['new_login']
+    new_email = request.POST['new_email']
+    p = Player(login=new_login, email=new_email)
+    p.save()
+    return HttpResponseRedirect(reverse('builder:players'))

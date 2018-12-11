@@ -117,17 +117,17 @@ def delete_card(request, id):
 
 def players(request):
     players = Player.objects.all()
-    return render(request, 'players.html', {'players': players})
+    return render(request, 'player/players.html', {'players': players})
 
 
 def player(request, player_id):
     player = Player.objects.get(pk=player_id)
     decks = player.get_decks()
-    return render(request, 'player.html', {'player': player, 'decks': decks})
+    return render(request, 'player/player.html', {'player': player, 'decks': decks})
 
 
 def new_player(request):
-    return render(request, 'new_player.html')
+    return render(request, 'player/new_player.html')
 
 
 def new_player_submit(request):

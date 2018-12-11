@@ -1,13 +1,13 @@
  {% extends "base.html" %}
  {% block content %}<br>
- Here are decks:<br><br>
+  Here are all decks:<br><br>
  <ul>
 
  <span style="font-weight:normal">
  {% for deck in decks %}<li>
   <a href="{% url 'builder:deck' deck.id %}" style="text-decoration: none">
    <strong>{{deck.deck_name}}</strong></a> from {{deck.owner.login}}
-   <a href="{% url 'builder:delete_deck' deck.id %}" style="text-decoration: none" ><span style="font-weight:normal">☠</span></a>
+
 
 
 </li>

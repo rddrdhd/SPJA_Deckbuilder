@@ -32,7 +32,7 @@ class Card(models.Model):
     name = models.CharField(max_length=150) #string
     cmc = models.IntegerField() #int - converted mana cost
     rarity = models.CharField(max_length=20) #string
-    text = models.CharField(max_length=1000, default = None) #string
+    text = models.CharField(max_length=1000, null = True) #string
     imgUrl = models.CharField(max_length=1000)
 
     deck = models.ForeignKey(Deck,on_delete=models.CASCADE)

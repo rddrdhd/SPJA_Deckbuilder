@@ -1,6 +1,7 @@
  {% extends "base.html" %}
  {% block content %}
-Deck no. {{deck.id}}, {{deck.deck_name}}<br><br>
+ <span style="font-weight:normal">{{deck.owner.login}}'s</span>
+<h2>{{deck.deck_name}}</h2>
  <table>
   <tr>
    <th>

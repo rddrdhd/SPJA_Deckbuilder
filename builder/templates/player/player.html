@@ -1,7 +1,9 @@
  {% extends "base.html" %}
  {% block content %}
-{{player.login}}<br><br>
- <table>
+ <h3>{{player.login}}</h3>
+<span style="font-weight:normal"> registered {{player.registered_at}} with email {{player.email}}. <br><br>
+Those are {{player.login}}'s decks:<br><br>
+</span> <table>
   <tr>
    <th>
      {% for deck in decks %}

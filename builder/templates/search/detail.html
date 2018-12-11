@@ -1,10 +1,12 @@
  {% extends "base.html" %}
  {% block content %}
- <table>
+ <table >
 
      <tr>
          <th align="left">
              <h4>{{card_data.name}}</h4>
+
+                 <span style="font-weight:normal">
              <ul>
                  {% for key, value in card_data.items %}
                     {% if key == 'text' or key == 'flavor' %}
@@ -16,6 +18,7 @@
                     {% endif %}
                  {%endfor%}
              </ul>
+                 </span>
 
          </th>
          <th align="right" style="vertical-align: top;">

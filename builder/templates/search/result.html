@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+
 <table>
     <tr>
         <th align="left">
@@ -8,10 +9,14 @@
                 <br>
                 <br>
                 <br>
+
                 {% for card in cards_data %}
+                 <span style="font-weight:normal">
                 <a href="{% url 'builder:detail' card.id %}">
-                    <li>{{card.name}}</a> from {{card.setName}} set</li>
+                    <li><strong>{{card.name}}</strong></a> from {{card.setName}} set</li>
+
                 {% endfor %}
+                 </span>
             </ul>
         </th>
     </tr>

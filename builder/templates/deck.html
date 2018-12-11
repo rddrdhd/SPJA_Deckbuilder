@@ -5,9 +5,12 @@ Deck no. {{deck.id}}, {{deck.deck_name}}<br><br>
   <tr>
    <th>
      {% for card in deck.cards.all %}
- <a href="{% url 'builder:detail' card.card_id %}">
-              <li>{{card.name}} </li></a>
- {% endfor %}
+        <li>
+         <a href="{% url 'builder:detail' card.card_id %}" style="text-decoration: none">{{card.name}}</a>
+          -
+         <a href="{% url 'builder:delete_card' card.id %}" style="text-decoration: none" ><span style="font-weight:normal">☠</span></a>
+        </li>
+    {% endfor %}
 
    </th>
   </tr>

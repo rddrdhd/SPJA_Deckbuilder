@@ -4,7 +4,7 @@
  <ul>
  {% for deck in decks %}
   <a href="{% url 'builder:deck' deck.id %}">
- <li>{{deck.deck_name}}</li></a>
+ <li>{{deck.deck_name}}  -  ({{deck.cards.all.count}})</li></a>
 
  {% endfor %}
  </ul>

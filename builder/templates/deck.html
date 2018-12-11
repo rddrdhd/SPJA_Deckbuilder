@@ -1,9 +1,17 @@
  {% extends "base.html" %}
  {% block content %}
 Deck no. {{deck.id}}, {{deck.deck_name}}<br><br>
- {% for card in deck.cards.all %}
+ <table>
+  <tr>
+   <th>
+     {% for card in deck.cards.all %}
  <a href="{% url 'builder:detail' card.card_id %}">
-              <li>{{card.name}}</li></a>
+              <li>{{card.name}} </li></a>
  {% endfor %}
+
+   </th>
+  </tr>
+ </table>
+
  {% endblock %}
 

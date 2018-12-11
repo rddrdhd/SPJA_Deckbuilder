@@ -17,8 +17,13 @@ def gimme_card_data_by_id(card_id):
 # from card_id it adds card into DB & returns card
 def create_card_return(card_id):
     c_data = gimme_card_data_by_id(card_id)
-    card = Card(card_id=c_data['id'], name=c_data['name'], cmc=c_data['cmc'], rarity=c_data['rarity'],
-                text=c_data['text'], imgUrl=c_data['imageUrl'])
+    if 'text' in c_data:
+        card = Card(card_id=c_data['id'], name=c_data['name'], cmc=c_data['cmc'], rarity=c_data['rarity'],
+                    text=c_data['text'], imgUrl=c_data['imageUrl'])
+    else:
+        card = Card(card_id=c_data['id'], name=c_data['name'], cmc=c_data['cmc'], rarity=c_data['rarity'],
+                    text=None, imgUrl=c_data['imageUrl'])
+
     card.save()
     return card
 

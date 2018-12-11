@@ -4,7 +4,7 @@ Deck no. {{deck.id}}, {{deck.deck_name}}<br><br>
  <table>
   <tr>
    <th>
-     {% for card in deck.cards.all %}
+     {% for card in cards %}
         <li>
          <a href="{% url 'builder:detail' card.card_id %}" style="text-decoration: none">{{card.name}}</a>
           -

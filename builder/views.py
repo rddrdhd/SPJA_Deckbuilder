@@ -15,14 +15,15 @@ def gimme_card_data_by_id(card_id):
 
 
 # from card_id it adds card into DB & returns card
-def create_card_return(card_id):
+def create_card_return(card_id, deck_id):
+    deck = get_object_or_404(Deck, pk=deck_id)
     c_data = gimme_card_data_by_id(card_id)
     if 'text' in c_data:
         card = Card(card_id=c_data['id'], name=c_data['name'], cmc=c_data['cmc'], rarity=c_data['rarity'],
-                    text=c_data['text'], imgUrl=c_data['imageUrl'])
+                    text=c_data['text'], imgUrl=c_data['imageUrl'], deck=deck)
     else:
         card = Card(card_id=c_data['id'], name=c_data['name'], cmc=c_data['cmc'], rarity=c_data['rarity'],
-                    text=None, imgUrl=c_data['imageUrl'])
+                    text=None, imgUrl=c_data['imageUrl'], deck=deck)
 
     card.save()
     return card
@@ -66,7 +67,8 @@ def decks(request):
 # Detail of deck
 def deck(request, deck_id):
     d = Deck.objects.get(id=deck_id)
-    return render(request, 'deck.html', {'deck': d})
+    c = Card.objects.filter(deck=d)
+    return render(request, 'deck.html', {'deck': d, 'cards':c})
 
 
 # Leads to 'add card to existing deck' and sending card_id & all decks
@@ -80,8 +82,7 @@ def add_to_deck_submit(request, card_id):
     deck_id = request.POST['deck_id']
 
     d = get_object_or_404(Deck, pk=deck_id)
-    card = create_card_return(card_id)
-    d.cards.add(card)
+    card = create_card_return(card_id, deck_id)
     d.save()
 
     return HttpResponseRedirect(reverse('builder:decks'))
@@ -89,15 +90,17 @@ def add_to_deck_submit(request, card_id):
 
 # Leads to 'add card to new deck' and sending card_id
 def create_deck(request, card_id):
-    return render(request, 'add_card/to_new.html', {'card_id': card_id})
+    players = Player.objects.all()
+    return render(request, 'add_card/to_new.html', {'card_id': card_id, 'players': players})
 
 # Saving the new deck from 'add card to new deck'
 def create_deck_submit(request, card_id):
+    p_id = request.POST['player_id']
+    p = Player.objects.get(pk=p_id)
     d_name = request.POST['deck_name']
-    card = create_card_return(card_id)
-    d = Deck(deck_name=d_name)
+    d = Deck(deck_name=d_name, owner = p)
     d.save()
-    d.cards.add(card)
+    create_card_return(card_id, d.id)
     return HttpResponseRedirect(reverse('builder:decks'))
 
 def delete_deck(request,id):
@@ -113,6 +116,6 @@ def players(request):
     return render(request, 'players.html', {'players': players})
 
 def player(request, player_id):
-    player = Player.objects.filter(id=player_id)
+    player = Player.objects.get(pk=player_id)
     return render(request, 'player.html', {'player': player})
 

@@ -125,7 +125,8 @@ def players(request):
 def player(request, player_id):
     #player = Player.objects.get(pk=player_id)
     player = User.objects.get(pk=player_id)
-    decks = Deck.objects.filter(pk=player_id)
+
+    decks = Deck.objects.filter(pk=player_id)#TODO: returns empty QuerySet
     return render(request, 'player/player.html', {'player': player, 'decks': decks})
 
 
@@ -136,9 +137,14 @@ def new_player(request):
 def new_player_submit(request):
     new_login = request.POST['new_login']
     new_email = request.POST['new_email']
+    new_password = request.POST['new_password']
+    new_password2 = request.POST['new_password2']
+    if new_password == new_password2:
     #new_bio = request.POST['new_bio']
     #new_password = request.POST['new_password']
     #p = Player(login=new_login, email=new_email, bio=new_bio)
-    p = User.objects.create_user(new_login, new_email)#,new_password,new_bio)
-    p.save()
-    return HttpResponseRedirect(reverse('builder:players'))
+        p = User.objects.create_user(new_login, new_email, new_password)#,new_password,new_bio)
+        p.save()
+        return HttpResponseRedirect(reverse('builder:players'))
+    else:
+        return HttpResponseRedirect(reverse('builder:new_player'))

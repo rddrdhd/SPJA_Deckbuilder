@@ -1,11 +1,9 @@
  {% extends "base.html" %}
  {% block content %}
 <br><br><br>
-<form action="{% url 'builder:result' %}" method="post">
-    {% csrf_token %}
-  <input name="q"/>
+ <form action="{% url 'builder:result' %}" method="post">
+     {% csrf_token %}
+     <input name="q"/>
      <button class="btn" type="submit">Search cards</button>
- </form>
-
- <br><br><br>
+ </form><br><br><br>
  {% endblock %}

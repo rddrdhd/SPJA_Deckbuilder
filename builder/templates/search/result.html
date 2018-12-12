@@ -1,24 +1,23 @@
 {% extends "base.html" %}
 {% block content %}
-
 <table>
     <tr>
         <th align="left">
             <ul>
                 results for '{{q}}'
-                <br>
-                <br>
-                <br>
-
+                <br><br><br>
                 {% for card in cards_data %}
                 {% if 'imageUrl' in card%}
-                 <span style="font-weight:normal">
-                <a href="{% url 'builder:detail' card.id %}">
-                    <li><strong>{{card.name}}</strong></a> from {{card.setName}} set</li>
-
-                {% endif %}
-                {% endfor %}
-                 </span>
+                <span style="font-weight:normal">
+                    <li>
+                        <a href="{% url 'builder:detail' card.id %}">
+                            <strong>{{card.name}}</strong>
+                        </a>
+                        from {{card.setName}} set
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                </span>
             </ul>
         </th>
     </tr>

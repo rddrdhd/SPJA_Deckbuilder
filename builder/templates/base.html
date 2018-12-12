@@ -1,83 +1,65 @@
 <html>
-<head>
-    <style>
+    <head>
+        <style>
+        table {
+            border-collapse: collapse;
+            width: 98%;
 
-table {
-  border-collapse: collapse;
-  width: 98%;
+        }
+        .btn {
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 0;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-image: none;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+        </style>
+    </head>
+    <body style="width: 98%; height: 100%; background-color:161616; font-family: Ubuntu;
+            "text=F6F6F6 link="A6A6A6" vlink="767676" alink="FFFFFF">
+        <div>
+            <table style="width:100%">
+                <col width="20%">
+                <col width="80%">
+                <tr>
+                    <th colspan="2">
+                        <a href="{% url 'builder:index'%}" style="text-decoration: none"><h1>☣DECKBUILDER☣</h1></a>
+                        <a href="https://magic.wizards.com/en" style="text-decoration: none"><h3> Magic: The Gathering </h3></a>
+                    </th>
+                </tr>
+                <tr>
+                    <th style="vertical-align: top;"><br><br>
+                        <a href="/search"><button class="btn">Search cards</button></a><br><br>
+                        <a href="/decks"><button class="btn"type="submit">View decks</button></a><br><br>
+                        <a href="/players"><button class="btn"type="submit">View players</button></a>
+                    </th>
+                    <th style="vertical-align: middle;">
+                        <table border="0" >
+                            <tr>
+                                <th>
+                                    {% block content %}
 
-}
-.btn {
-    display: inline-block;
-    padding: 6px 12px;
-    margin-bottom: 0;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.42857143;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-image: none;
-    border: 1px solid transparent;
-    border-radius: 4px;
-}
-</style>
-</head>
-  <body style="width: 98%; height: 100%; background-color:161616; font-family: Ubuntu ; "
-  text=F6F6F6 link="A6A6A6" vlink="767676" alink="FFFFFF">
-    <div>
-        <table style="width:100%">
-            <col width="20%">
-            <col width="80%">
-            <tr>
-                <th colspan="2">
-
-                    <a href="{% url 'builder:index'%}" style="text-decoration: none">
-                        <h1>☣DECKBUILDER☣</h1>
-                    </a>
-                    <a href="https://magic.wizards.com/en" style="text-decoration: none">
-                    <h3> Magic: The Gathering </h3>
-                    </a>
-                </th>
-            </tr>
-            <tr>
-                <th style="vertical-align: top;">
-                    <br>
-                    <br>
-                    <a href="/search">
-                        <button class="btn">Search cards</button>
-                    </a>
-                    <br>
-                    <br>
-                    <a href="/decks">
-                    <button class="btn"type="submit">View decks</button>
-                    </a><br>
-                    <br>
-                    <a href="/players">
-                    <button class="btn"type="submit">View players</button>
-                    </a>
-                </th>
-                <th style="vertical-align: middle;">
-                    <table border="0" >
-                        <tr>
-                            <th >
-
-                    {% block content %}
-
-                    {% endblock %}
-                            </th>
-                        </tr>
-                    </table>
-                </th>
-            </tr>
-        </table>
-    </div>
-  </body>
+                                    {% endblock %}
+                                </th>
+                            </tr>
+                        </table>
+                    </th>
+                </tr>
+            </table>
+        </div>
+    </body>
 </html>

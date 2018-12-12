@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
 from django.urls import reverse
-from .models import Deck, Card#, Player
+from .models import Deck, Card
 import requests
 from django.contrib.auth.models import User
 
@@ -18,21 +18,22 @@ def gimme_card_data_by_id(card_id):
 def create_card_return(card_id, deck_id):
     deck = get_object_or_404(Deck, pk=deck_id)
     c_data = gimme_card_data_by_id(card_id)
-    if 'text' in c_data: #only lands do not have text - F them
-        card = Card(card_id=c_data['id'], name=c_data['name'], cmc=c_data['cmc'], rarity=c_data['rarity'],
-                    text=c_data['text'], imgUrl=c_data['imageUrl'], deck=deck)
+    if 'text' in c_data:  # only lands do not have text - F them
+        card = Card(card_id=c_data['id'], name=c_data['name'], manaCost=c_data['manaCost'], colors=c_data['colors'],
+                    type=c_data['type'], cmc=c_data['cmc'], rarity=c_data['rarity'], text=c_data['text'],
+                    flavor=c_data['flavor'], artist=c_data['artist'], imgUrl=c_data['imageUrl'],
+                    number=c_data['number'], deck=deck)
     else:
-        card = Card(card_id=c_data['id'], name=c_data['name'], cmc=c_data['cmc'], rarity=c_data['rarity'],
-                    text=None, imgUrl=c_data['imageUrl'], deck=deck)
+        card = Card(card_id=c_data['id'], name=c_data['name'], manaCost=c_data['manaCost'], colors=c_data['colors'],
+                    type=c_data['type'], cmc=c_data['cmc'], rarity=c_data['rarity'], text=None,
+                    flavor=c_data['flavor'], artist=c_data['artist'], imgUrl=c_data['imageUrl'],
+                    number=c_data['number'], deck=deck)
 
     card.save()
     return card
 
 
 # --------------------------------   VIEWS
-# TODO: Delete card from deck
-# TODO: Delete deck and his cards (cascade?)
-# TODO: Player (login, topic, OneToManyFiled  decks)
 # Main page
 def index(request):
     return render(request, 'index.html')
@@ -97,7 +98,6 @@ def create_deck(request, card_id):
 # Saving the new deck from 'add card to new deck'
 def create_deck_submit(request, card_id):
     p_id = request.POST['player_id']
-    #p = Player.objects.get(pk=p_id)
     p = get_object_or_404(User, pk=p_id)
     d_name = request.POST['deck_name']
     d = Deck(deck_name=d_name, owner=p)
@@ -117,16 +117,14 @@ def delete_card(request, id):
 
 
 def players(request):
-    #players = Player.objects.all()
     players = User.objects.all()
     return render(request, 'player/players.html', {'players': players})
 
 
 def player(request, player_id):
-    #player = Player.objects.get(pk=player_id)
     player = User.objects.get(pk=player_id)
 
-    decks = Deck.objects.filter(pk=player_id)#TODO: returns empty QuerySet
+    decks = Deck.objects.filter(pk=player_id)  # TODO: returns empty QuerySet - whyyyyyy
     return render(request, 'player/player.html', {'player': player, 'decks': decks})
 
 
@@ -140,11 +138,20 @@ def new_player_submit(request):
     new_password = request.POST['new_password']
     new_password2 = request.POST['new_password2']
     if new_password == new_password2:
-    #new_bio = request.POST['new_bio']
-    #new_password = request.POST['new_password']
-    #p = Player(login=new_login, email=new_email, bio=new_bio)
-        p = User.objects.create_user(new_login, new_email, new_password)#,new_password,new_bio)
+        p = User.objects.create_user(new_login, new_email, new_password)
         p.save()
         return HttpResponseRedirect(reverse('builder:players'))
     else:
         return HttpResponseRedirect(reverse('builder:new_player'))
+
+
+# TODO: Authentication
+    # TODO: Sign up & log in (templates/index.html ?)
+    # TODO: Permissions
+    # TODO: Deck / card removing - only from owner
+
+# TODO: View card from deck - not from API (new template, url, view)
+    # TODO: Re-adding card into the same deck
+    # TODO: Re-adding card into the another deck
+
+

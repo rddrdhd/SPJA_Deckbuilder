@@ -1,47 +1,42 @@
  {% extends "base.html" %}
  {% block content %}
  <table >
-
      <tr>
          <th align="left">
              <h4>{{card_data.name}}</h4>
-
-                 <span style="font-weight:normal">
-             <ul>
-                 {% for key, value in card_data.items %}
-                    {% if key == 'text' or key == 'flavor' %}
-                        <li><strong>{{key}}</strong> : <p>{{value}}</p> </li>
-                    {% elif key == 'id' or key == 'legalities' or key == 'printings' or key == 'originalText' or key == 'multiverseid' or key == 'imageUrl' or key == 'set' or key == 'rulings' or key == 'originalType' or key == 'layout' or key == 'originalType' or key == 'types' or key == 'subTypes' or key == 'foreignNames' %}
-
-                    {% else %}
-                             <li><strong>{{key}}</strong> : {{value}} </li>
-                    {% endif %}
-                 {%endfor%}
-             </ul>
-                 </span>
-
+             <span style="font-weight:normal">
+                 <ul>
+                     {% for key, value in card_data.items %}
+                        {% if key == 'text' or key == 'flavor' %}
+                            <li><strong>{{key}}</strong> : <p>{{value}}</p> </li>
+                        {% elif key == 'id' or
+                                key == 'legalities' or
+                                key == 'printings' or
+                                key == 'originalText' or
+                                key == 'multiverseid' or
+                                key == 'imageUrl' or
+                                key == 'set' or
+                                key == 'rulings' or
+                                key == 'originalType' or
+                                key == 'layout' or
+                                key == 'originalType' or
+                                ey == 'types' or
+                                key == 'subTypes' or
+                                key == 'foreignNames' %}
+                        {% else %}
+                            <li><strong>{{key}}</strong> : {{value}} </li>
+                        {% endif %}
+                    {%endfor%}
+                 </ul>
+             </span>
          </th>
          <th align="right" style="vertical-align: top;">
-             <a href="{% url 'builder:add_to_deck' card_data.id %}">
-                 <button>Add to existing deck</button>
-             </a><br><br>
-             <a href="{% url 'builder:create_deck' card_data.id %}">
-                 <button>Add to new deck</button>
-             </a><br><br>
-              <img src="{{card_data.imageUrl}}" alt="{{card_data.name}}'s image did not found" />
-         </th>
-
-
-
- <br><br><br>
-
-
-
+             <a href="{% url 'builder:add_to_deck' card_data.id %}"> <button>Add to existing deck</button></a><br><br>
+             <a href="{% url 'builder:create_deck' card_data.id %}"> <button>Add to new deck</button></a><br><br>
+             <img src="{{card_data.imageUrl}}" alt="{{card_data.name}}'s image did not found" />
+         </th><br><br><br>
      </tr>
-
  </table>
-
-
  {% endblock %}
 
 

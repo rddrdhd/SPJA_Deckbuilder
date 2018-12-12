@@ -2,21 +2,21 @@
  {% block content %}<br>
  Here are players:<br>
  <ul>
-
- <span style="font-weight:normal">
- {% for player in players %}
-     {%if player.username != 'admin'%}
- <li> <a href="{% url 'builder:player' player.id %}" style="text-decoration: none" ><strong>{{player.username}}</strong></a>
-{%endif%}
-
-</li>
- {% endfor %}
- </span>
-  <br>
-                    <br>
-                    <a href="/new_player">
-                    <button class="btn" type="submit">Create new player</button>
-                    </a>
+     <span style="font-weight:normal">
+         {% for player in players %}
+             {%if player.username != 'admin'%}
+                 <li>
+                     <a href="{% url 'builder:player' player.id %}" style="text-decoration: none" >
+                         <strong>{{player.username}}</strong>
+                     </a>
+                 </li>
+            {%endif%}
+         {% endfor %}
+     </span>
+     <br><br>
+     <a href="/new_player">
+         <button class="btn" type="submit">Create new player</button>
+     </a>
  </ul>
  {% endblock %}
 

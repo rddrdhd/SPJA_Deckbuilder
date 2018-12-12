@@ -11,10 +11,12 @@
                 <br>
 
                 {% for card in cards_data %}
+                {% if 'imageUrl' in card%}
                  <span style="font-weight:normal">
                 <a href="{% url 'builder:detail' card.id %}">
                     <li><strong>{{card.name}}</strong></a> from {{card.setName}} set</li>
 
+                {% endif %}
                 {% endfor %}
                  </span>
             </ul>

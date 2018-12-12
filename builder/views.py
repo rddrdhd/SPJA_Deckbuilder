@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect, HttpResponseRedirect
-import requests
+from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
 from django.urls import reverse
-from .models import Deck, Card, Player
-from django.shortcuts import get_object_or_404
+from .models import Deck, Card#, Player
+import requests
+from django.contrib.auth.models import User
 
 
 # --------------------------------   MAH FUNCS
@@ -82,7 +82,7 @@ def add_to_deck_submit(request, card_id):
     deck_id = request.POST['deck_id']
 
     d = get_object_or_404(Deck, pk=deck_id)
-    card = create_card_return(card_id, deck_id)
+    create_card_return(card_id, deck_id)
     d.save()
 
     return HttpResponseRedirect(reverse('builder:decks'))
@@ -90,14 +90,15 @@ def add_to_deck_submit(request, card_id):
 
 # Leads to 'add card to new deck' and sending card_id
 def create_deck(request, card_id):
-    players = Player.objects.all()
+    players = User.objects.all()
     return render(request, 'add_card/to_new.html', {'card_id': card_id, 'players': players})
 
 
 # Saving the new deck from 'add card to new deck'
 def create_deck_submit(request, card_id):
     p_id = request.POST['player_id']
-    p = Player.objects.get(pk=p_id)
+    #p = Player.objects.get(pk=p_id)
+    p = get_object_or_404(User, pk=p_id)
     d_name = request.POST['deck_name']
     d = Deck(deck_name=d_name, owner=p)
     d.save()
@@ -116,13 +117,15 @@ def delete_card(request, id):
 
 
 def players(request):
-    players = Player.objects.all()
+    #players = Player.objects.all()
+    players = User.objects.all()
     return render(request, 'player/players.html', {'players': players})
 
 
 def player(request, player_id):
-    player = Player.objects.get(pk=player_id)
-    decks = player.get_decks()
+    #player = Player.objects.get(pk=player_id)
+    player = User.objects.get(pk=player_id)
+    decks = Deck.objects.filter(pk=player_id)
     return render(request, 'player/player.html', {'player': player, 'decks': decks})
 
 
@@ -133,7 +136,9 @@ def new_player(request):
 def new_player_submit(request):
     new_login = request.POST['new_login']
     new_email = request.POST['new_email']
-    new_bio = request.POST['new_bio']
-    p = Player(login=new_login, email=new_email, bio=new_bio)
+    #new_bio = request.POST['new_bio']
+    #new_password = request.POST['new_password']
+    #p = Player(login=new_login, email=new_email, bio=new_bio)
+    p = User.objects.create_user(new_login, new_email)#,new_password,new_bio)
     p.save()
     return HttpResponseRedirect(reverse('builder:players'))

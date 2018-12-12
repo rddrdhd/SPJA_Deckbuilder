@@ -6,9 +6,15 @@
   Enter deck name: <input name="deck_name"/><br><br>
   Card ID: <input name="card_id" value="{{card_id}}"/><br><br>
 Owner:
+
 <select name="player_id" size="1">
+
  {% for player in players %}
- <option value="{{player.id}}">{{player.login}}</option>
+ {% if player.username != 'admin' %}
+
+ <option value="{{player.id}}">{{player.username}}</option>
+
+  {% endif %}
   {% endfor %}
 </select>
     <br><br><br> <button type="submit">Create deck & add card</button>

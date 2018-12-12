@@ -1,22 +1,10 @@
+from django.contrib.auth.models import User
 from django.db import models
-
-
-class Player(models.Model):
-    login = models.CharField(max_length=50)
-    email = models.CharField(max_length=150)
-    bio = models.CharField(max_length=1000, null=True)
-    registered_at = models.DateTimeField(auto_now_add=True)
-
-    def get_decks(self):
-        return Deck.objects.filter(owner=self)
-
-    def __str__(self):
-        return '%s, %s' % (self.login, self.email)
 
 
 class Deck(models.Model):
     deck_name = models.CharField(max_length=50)
-    owner = models.ForeignKey(Player, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def get_cards(self):
         return Card.objects.filter(deck=self)

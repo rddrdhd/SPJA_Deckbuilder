@@ -6,7 +6,7 @@
  <span style="font-weight:normal">
  {% for deck in decks %}<li>
   <a href="{% url 'builder:deck' deck.id %}" style="text-decoration: none">
-   <strong>{{deck.deck_name}}</strong></a> from {{deck.owner.login}}
+   <strong>{{deck.deck_name}}</strong></a> from {{deck.owner.username}}
 
 
 

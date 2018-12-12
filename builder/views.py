@@ -133,6 +133,7 @@ def new_player(request):
 def new_player_submit(request):
     new_login = request.POST['new_login']
     new_email = request.POST['new_email']
-    p = Player(login=new_login, email=new_email)
+    new_bio = request.POST['new_bio']
+    p = Player(login=new_login, email=new_email, bio=new_bio)
     p.save()
     return HttpResponseRedirect(reverse('builder:players'))

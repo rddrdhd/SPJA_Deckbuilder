@@ -48,7 +48,8 @@
                          Hi {{ user.username }}! <br><br>
                         {% else %}
                           <p>You are not logged in</p>
-                          <a href="{% url 'login' %}"><button class="btn">Login</button></a><br><br><br><br><br><br>
+                          <a href="{% url 'login' %}"><button class="btn">Login</button></a><br><br>
+                        <a href="/signup"><button class="btn">Signup</button></a><br><br><br><br><br><br>
                         {% endif %}
                         <a href="/search"><button class="btn">Search cards</button></a><br><br>
                         <a href="/decks"><button class="btn"type="submit">View decks</button></a><br><br>

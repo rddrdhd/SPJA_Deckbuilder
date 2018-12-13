@@ -1,8 +1,10 @@
 from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from .models import Deck, Card
 import requests
 from django.contrib.auth.models import User
+from django.views import generic
+from django.contrib.auth.forms import UserCreationForm
 
 
 # --------------------------------   MAH FUNCS
@@ -33,10 +35,23 @@ def create_card_return(card_id, deck_id):
     return card
 
 
+# --------------------------------  signup
+class SignUp(generic.CreateView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy('login')
+    # for all generic class-based views the urls are not loaded when the file is imported, so we have to use the lazy
+    # form of reverse to load them later when they’re available
+    template_name = 'signup.html'
+
+
 # --------------------------------   VIEWS
 # Main page
 def index(request):
     return render(request, 'index.html')
+
+
+# def home(request):
+#   return render(request, 'home.html')
 
 
 # Just leads to page with 'search card' field
@@ -124,7 +139,7 @@ def players(request):
 def player(request, player_id):
     player = User.objects.get(pk=player_id)
 
-    decks = Deck.objects.filter(pk=player_id)  # TODO: returns empty QuerySet - whyyyyyy
+    decks = Deck.objects.filter(owner=player_id)
     return render(request, 'player/player.html', {'player': player, 'decks': decks})
 
 
@@ -144,14 +159,9 @@ def new_player_submit(request):
     else:
         return HttpResponseRedirect(reverse('builder:new_player'))
 
-
-# TODO: Authentication
-    # TODO: Sign up & log in (templates/index.html ?)
-    # TODO: Permissions
-    # TODO: Deck / card removing - only from owner
+# TODO: Permissions
+# TODO: Deck / card removing - only from owner
 
 # TODO: View card from deck - not from API (new template, url, view)
-    # TODO: Re-adding card into the same deck
-    # TODO: Re-adding card into the another deck
-
-
+# TODO: Re-adding card into the same deck
+# TODO: Re-adding card into the another deck

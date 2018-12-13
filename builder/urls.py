@@ -4,6 +4,9 @@ from . import views
 app_name = 'builder'
 urlpatterns = [
     path('', views.index, name='index'),  # main page
+    #path('home/', views.home, name='home'),  # TODO home
+
+    path('signup/', views.SignUp.as_view(), name='signup'),   # TODO signup
 
     path('search/', views.search, name='search'),  # search field
     path('search/result', views.result, name='result'),  # results of searching

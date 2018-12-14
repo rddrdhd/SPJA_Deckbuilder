@@ -32,11 +32,13 @@
 
           {% if userid == deck.owner.id%}
           <a href="{% url 'builder:delete_deck' deck.id %}"><button class="btn">Delete deck</button></a><br><br>
-          {% endif%}
+
         <br><br>
          <a href="{% url 'builder:new_comment' deck.id %}"><button class="btn">Add comment</button></a><br><br>
-
-
+        {%else%}
+        Login to add comment<br><br><br>
+            {% endif%}
+{%if comments%}
         Comments:<br><br><br>
     {% for comment in comments%}
         <span style="font-weight:normal;">
@@ -46,6 +48,7 @@
             <strong>{{comment.title}}</strong><br>{{comment.text}}</span><br><br><br>
         {% endif %}
     {% endfor%}
+        {%endif%}
     </th>
    </tr>
  </table>

@@ -40,8 +40,11 @@
         Comments:<br><br><br>
     {% for comment in comments%}
         <span style="font-weight:normal;">
+            {% if comment.to_deck == deck %}
             {{comment.author}}
-            : <br>{{comment.text}}</span><br><br><br>
+            : <br>
+            <strong>{{comment.title}}</strong><br>{{comment.text}}</span><br><br><br>
+        {% endif %}
     {% endfor%}
     </th>
    </tr>

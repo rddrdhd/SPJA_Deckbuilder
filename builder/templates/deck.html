@@ -2,6 +2,8 @@
  {% block content %}
 
  <table>
+     <col width="70%">
+     <col width="30%">
    <tr>
     <th>
       <span style="font-weight:normal">{{deck.owner.username}}'s</span>
@@ -35,7 +37,12 @@
       </a>
     </th>
     <th>
-
+        Comments:<br><br><br>
+    {% for comment in comments%}
+        <span style="font-weight:normal;">
+            {{comment.author}}
+            : <br>{{comment.text}}</span>
+    {% endfor%}
     </th>
    </tr>
  </table>

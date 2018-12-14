@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
 from django.urls import reverse, reverse_lazy
-from .models import Deck, Card
+from .models import Deck, Card, Comment
 import requests
 from django.contrib.auth.models import User
 from django.views import generic
@@ -93,8 +93,9 @@ def deck(request, deck_id):
     userid = None
     if request.user.is_authenticated:
         userid = request.user.id
+    comments = Comment.objects.filter(to_deck=deck_id)
     #   TODO https://stackoverflow.com/questions/12615154/how-to-get-the-currently-logged-in-users-user-id-in-django
-    return render(request, 'deck.html', {'deck': d, 'cards': c, 'userid': userid})
+    return render(request, 'deck.html', {'deck': d, 'cards': c, 'userid': userid, 'comments':comments})
 
 
 # Leads to 'add card to existing deck' and sending card_id & all decks

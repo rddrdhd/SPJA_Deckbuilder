@@ -9,6 +9,9 @@ class Deck(models.Model):
     def get_cards(self):
         return Card.objects.filter(deck=self)
 
+    def get_comments(self):
+        return Comment.objects.filter(deck=self)
+
     def __str__(self):
         return self.deck_name
 
@@ -20,13 +23,24 @@ class Card(models.Model):
     colors = models.CharField(max_length=100, null=True)
     type = models.CharField(max_length=30)
     cmc = models.IntegerField()  # int - converted mana cost
-    rarity = models.CharField(max_length=20)  # string
-    text = models.CharField(max_length=1000, null=True)  # string
+    rarity = models.CharField(max_length=20)
+    text = models.CharField(max_length=1000, null=True)
     flavor = models.CharField(max_length=1000, null=True)
     imgUrl = models.CharField(max_length=1000)
     artist = models.CharField(max_length=100)
-    number = models.IntegerField(null=True) # Some cards dont have number???
+    number = models.IntegerField(null=True)  # Some cards dont have number???
     deck = models.ForeignKey(Deck, on_delete=models.CASCADE)
 
     def __str__(self):
         return '%s, {%s}' % (self.name, self.cmc)
+
+
+class Comment(models.Model):
+    title = models.CharField(max_length=50)
+    text = models.CharField(max_length=500)
+    added = models.DateTimeField()
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    to_deck = models.ForeignKey(Deck, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return '%s, %s' % (self.title, self.text)

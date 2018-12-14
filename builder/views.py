@@ -47,7 +47,7 @@ class SignUp(generic.CreateView):
     success_url = reverse_lazy('login')
     # for all generic class-based views the urls are not loaded when the file is imported, so we have to use the lazy
     # form of reverse to load them later when they’re available
-    template_name = 'signup.html'
+    template_name = 'registration/signup.html'
 
 
 # --------------------------------   VIEWS
@@ -83,7 +83,7 @@ def detail(request, card_id):
 # All decks
 def decks(request):
     ds = Deck.objects.all()
-    return render(request, 'decks.html', {'decks': ds})
+    return render(request, 'deck/decks.html', {'decks': ds})
 
 
 # Detail of deck
@@ -95,7 +95,7 @@ def deck(request, deck_id):
         userid = request.user.id
     comments = Comment.objects.filter(to_deck=deck_id)
     #   TODO https://stackoverflow.com/questions/12615154/how-to-get-the-currently-logged-in-users-user-id-in-django
-    return render(request, 'deck.html', {'deck': d, 'cards': c, 'userid': userid, 'comments':comments})
+    return render(request, 'deck/deck.html', {'deck': d, 'cards': c, 'userid': userid, 'comments': comments})
 
 
 # Leads to 'add card to existing deck' and sending card_id & all decks
@@ -124,7 +124,7 @@ def create_deck(request, card_id):
     userid = None
     if request.user.is_authenticated:
         userid = request.user.id
-    return render(request, 'add_card/to_new.html', {'card_id': card_id, 'players': players, 'userid':userid})
+    return render(request, 'add_card/to_new.html', {'card_id': card_id, 'players': players, 'userid': userid})
 
 
 # Saving the new deck from 'add card to new deck'
@@ -160,4 +160,23 @@ def player(request, player_id):
     userid = None
     if request.user.is_authenticated:
         userid = request.user.id
-    return render(request, 'player/player.html', {'player': player, 'decks': decks, 'userid':userid})
+    return render(request, 'player/player.html', {'player': player, 'decks': decks, 'userid': userid})
+
+
+def new_comment(request, deck_id):
+    userid = None
+    if request.user.is_authenticated:
+        userid = request.user.id
+    return render(request, 'comment/new_comment.html', {'userid':userid, 'deck_id':deck_id})
+
+
+def new_comment_submit(request, deck_id):
+    text = request.POST['text']
+    title = request.POST['title']
+    deck = get_object_or_404(Deck, pk=deck_id)
+    user = None
+    if request.user.is_authenticated:
+        user = request.user
+    comment = Comment(title=title, text=text, author=user, to_deck=deck)
+    comment.save()
+    return HttpResponseRedirect(reverse('builder:index'))

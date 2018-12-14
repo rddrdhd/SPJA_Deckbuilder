@@ -1,0 +1,10 @@
+ {% extends "base.html" %}
+ {% block content %}
+<br><br><br>
+ <form action="{% url 'builder:new_comment_submit' deck_id %}" method="post">
+     {% csrf_token %}
+     Title: <input name="title"/><br><br>
+     Text: <input name="text"/><br><br>
+     <button class="btn" type="submit">Add comment</button>
+ </form><br><br><br>
+ {% endblock %}

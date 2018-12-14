@@ -29,4 +29,7 @@ urlpatterns = [
     path('delete_card/<int:id>', views.delete_card, name='delete_card'),
     path('delete_deck/<int:id>', views.delete_deck, name='delete_deck'),
 
+    path('new_comment/<int:deck_id>', views.new_comment, name='new_comment'),
+    path('new_comment_submit/<int:deck_id>', views.new_comment_submit, name='new_comment_submit'),
+
 ]

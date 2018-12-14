@@ -10,7 +10,7 @@ class Deck(models.Model):
         return Card.objects.filter(deck=self)
 
     def get_comments(self):
-        return Comment.objects.filter(deck=self)
+        return Comment.objects.filter(to_deck=self)
 
     def __str__(self):
         return self.deck_name
@@ -38,7 +38,7 @@ class Card(models.Model):
 class Comment(models.Model):
     title = models.CharField(max_length=50)
     text = models.CharField(max_length=500)
-    added = models.DateTimeField()
+    added = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     to_deck = models.ForeignKey(Deck, on_delete=models.CASCADE)
 

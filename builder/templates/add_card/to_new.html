@@ -3,21 +3,20 @@
  {% if userid%}
  <form action="{% url 'builder:create_deck_submit' card_id %}" method="post">
      {% csrf_token %}<br><br><br>
-
      Enter deck name: <input name="deck_name"/><br><br>
-
      Card ID: <input name="card_id" value="{{card_id}}"/> <br><br>
     {% if userid == 1 %}
-     Owner: <select name="player_id" size="1">
-     {% for player in players %}
-             <option value="{{player.id}}"> {{player.username}} </option>
-
-     {% endfor %}
-     </select>
-     {%elif userid%}
-      Owner: <select name="player_id" size="1">
-             <option value="{{userid}}"> {{userid}} </option>
-     </select>
+            Owner:
+            <select name="player_id" size="1">
+                {% for player in players %}
+                 <option value="{{userid}}"> {{player.username}} </option>
+                {% endfor %}
+            </select>
+     {%else%}
+            Owner:
+            <select name="player_id" size="1">
+            <option value="{{userid}}"> {{userid}} </option>
+            </select>
      {%endif%}
     <br><br><br>
 

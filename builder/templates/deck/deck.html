@@ -25,23 +25,23 @@
      {% endfor %}
      <br><br><br><br><br>
 
-          {% if userid%}
-          {% if userid == deck.owner.id%}
-       <span style="font-weight:normal;">delete deck</span>
-       <a href="{% url 'builder:delete_deck' deck.id %}" style="text-decoration: none" >
-     <span style="font-weight:normal;">
-      <h1>☠</h1>
-     </span>
-            {% endif%}
-          {% endif%}
-      </a>
+
+
     </th>
     <th>
+
+          {% if userid == deck.owner.id%}
+          <a href="{% url 'builder:delete_deck' deck.id %}"><button class="btn">Delete deck</button></a><br><br>
+          {% endif%}
+        <br><br>
+         <a href="{% url 'builder:new_comment' deck.id %}"><button class="btn">Add comment</button></a><br><br>
+
+
         Comments:<br><br><br>
     {% for comment in comments%}
         <span style="font-weight:normal;">
             {{comment.author}}
-            : <br>{{comment.text}}</span>
+            : <br>{{comment.text}}</span><br><br><br>
     {% endfor%}
     </th>
    </tr>

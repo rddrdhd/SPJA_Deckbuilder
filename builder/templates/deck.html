@@ -12,7 +12,6 @@
         {{card.name}}
        </a>
           {% if userid%}
-
           {% if userid == deck.owner.id%}
        -
        <a href="{% url 'builder:delete_card' card.id %}" style="text-decoration: none; font-weight:normal;" >
@@ -23,11 +22,16 @@
       </li>
      {% endfor %}
      <br><br><br><br><br>
+
+          {% if userid%}
+          {% if userid == deck.owner.id%}
        <span style="font-weight:normal;">delete deck</span>
        <a href="{% url 'builder:delete_deck' deck.id %}" style="text-decoration: none" >
      <span style="font-weight:normal;">
       <h1>☠</h1>
      </span>
+            {% endif%}
+          {% endif%}
       </a>
     </th>
     <th>

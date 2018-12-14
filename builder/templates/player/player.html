@@ -1,8 +1,10 @@
  {% extends "base.html" %}
  {% block content %}
- <h3>{{player.login}}</h3>
+
+ {% if decks %}
+ <h3>{{player.username}}</h3>
  <span style="font-weight:normal">
-     registered {{player.registered_at}} with email {{player.email}}.
+
      <br><br>
      Those are {{player.username}}'s decks:
      <br><br>
@@ -15,17 +17,22 @@
                  <a href="{% url 'builder:deck' deck.id %}" style="text-decoration: none">
                      <strong>{{deck.deck_name}}</strong>
                  </a>
+                 {% if deck.owner.id == playerid %}
                  -
                  <a href="{% url 'builder:delete_deck' deck.id %}" style="text-decoration: none" >
                      <span style="font-weight:normal">
                          ☠
                      </span>
                  </a>
+                 {% endif %}
              </li>
              {% endfor %}
          </th>
      </tr>
  </table>
 
+{% else %}
+ {{player.username}} doesn't have any decks yet.
+ {% endif %}
  {% endblock %}
 

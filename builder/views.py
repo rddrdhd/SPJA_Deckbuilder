@@ -95,7 +95,10 @@ def deck(request, deck_id):
 # Leads to 'add card to existing deck' and sending card_id & all decks
 def add_to_deck(request, card_id):
     decks = Deck.objects.all()
-    return render(request, 'add_card/to_existing.html', {'card_id': card_id, 'decks': decks})
+    userid = None
+    if request.user.is_authenticated:
+        userid = request.user.id
+    return render(request, 'add_card/to_existing.html', {'card_id': card_id, 'decks': decks, 'userid': userid})
 
 
 # Saving the deck from 'add card to existing deck'
@@ -145,7 +148,11 @@ def player(request, player_id):
     player = User.objects.get(pk=player_id)
 
     decks = Deck.objects.filter(owner=player_id)
-    return render(request, 'player/player.html', {'player': player, 'decks': decks})
+    userid = None
+    if request.user.is_authenticated:
+        userid = request.user.id
+    return render(request, 'player/player.html', {'player': player, 'decks': decks, 'userid':userid})
+
 
 """
 def new_player(request):

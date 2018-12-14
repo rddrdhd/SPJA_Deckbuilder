@@ -1,20 +1,25 @@
  {% extends "base.html" %}
  {% block content %}
+ {% if userid%}
  <form action="{% url 'builder:create_deck_submit' card_id %}" method="post">
      {% csrf_token %}<br><br><br>
 
      Enter deck name: <input name="deck_name"/><br><br>
 
      Card ID: <input name="card_id" value="{{card_id}}"/> <br><br>
-
+    {% if userid == 1 %}
      Owner: <select name="player_id" size="1">
      {% for player in players %}
              <option value="{{player.id}}"> {{player.username}} </option>
      {% endfor %}
+     {%endif%}
     </select><br><br><br>
 
      <button type="submit">Create deck & add card</button>
  </form>
+ {%else%}
+ Please login or signup for adding a card into deck
+ {%endif%}
  {% endblock %}
 
 

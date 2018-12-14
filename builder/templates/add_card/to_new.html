@@ -11,9 +11,15 @@
      Owner: <select name="player_id" size="1">
      {% for player in players %}
              <option value="{{player.id}}"> {{player.username}} </option>
+
      {% endfor %}
+     </select>
+     {%elif userid%}
+      Owner: <select name="player_id" size="1">
+             <option value="{{userid}}"> {{userid}} </option>
+     </select>
      {%endif%}
-    </select><br><br><br>
+    <br><br><br>
 
      <button type="submit">Create deck & add card</button>
  </form>

@@ -21,16 +21,21 @@ def gimme_card_data_by_id(card_id):
 def create_card_return(card_id, deck_id):
     deck = get_object_or_404(Deck, pk=deck_id)
     c_data = gimme_card_data_by_id(card_id)
-    if 'text' in c_data:  # only lands do not have text - F them
-        card = Card(card_id=c_data['id'], name=c_data['name'], manaCost=c_data['manaCost'], colors=c_data['colors'],
-                    type=c_data['type'], cmc=c_data['cmc'], rarity=c_data['rarity'], text=c_data['text'],
-                    flavor=c_data['flavor'], artist=c_data['artist'], imgUrl=c_data['imageUrl'],
-                    number=c_data['number'], deck=deck)
-    else:
-        card = Card(card_id=c_data['id'], name=c_data['name'], manaCost=c_data['manaCost'], colors=c_data['colors'],
-                    type=c_data['type'], cmc=c_data['cmc'], rarity=c_data['rarity'], text=None,
-                    flavor=c_data['flavor'], artist=c_data['artist'], imgUrl=c_data['imageUrl'],
-                    number=c_data['number'], deck=deck)
+
+    card = Card(card_id=c_data['id'], name=c_data['name'], colors=None,
+                type=c_data['type'], cmc=c_data['cmc'], rarity=c_data['rarity'], text=None,
+                flavor=None, artist=c_data['artist'], imgUrl=c_data['imageUrl'],
+                number=None, deck=deck)
+    if 'text' in c_data:
+        card.text = c_data['text']
+    if 'colors' in c_data:
+        card.colors = c_data['colors']
+    if 'flavor' in c_data:
+        card.flavor = c_data['flavor']
+    if 'manaCost' in c_data:
+        card.manaCost = c_data['manaCost']
+    if 'number' in c_data:
+        card.number = c_data['number']
 
     card.save()
     return card
@@ -115,7 +120,10 @@ def add_to_deck_submit(request, card_id):
 # Leads to 'add card to new deck' and sending card_id
 def create_deck(request, card_id):
     players = User.objects.all()
-    return render(request, 'add_card/to_new.html', {'card_id': card_id, 'players': players})
+    userid = None
+    if request.user.is_authenticated:
+        userid = request.user.id
+    return render(request, 'add_card/to_new.html', {'card_id': card_id, 'players': players, 'userid':userid})
 
 
 # Saving the new deck from 'add card to new deck'
@@ -152,29 +160,3 @@ def player(request, player_id):
     if request.user.is_authenticated:
         userid = request.user.id
     return render(request, 'player/player.html', {'player': player, 'decks': decks, 'userid':userid})
-
-
-"""
-def new_player(request):
-    return render(request, 'player/new_player.html')
-
-
-def new_player_submit(request):
-    new_login = request.POST['new_login']
-    new_email = request.POST['new_email']
-    new_password = request.POST['new_password']
-    new_password2 = request.POST['new_password2']
-    if new_password == new_password2:
-        p = User.objects.create_user(new_login, new_email, new_password)
-        p.save()
-        return HttpResponseRedirect(reverse('builder:players'))
-    else:
-        return HttpResponseRedirect(reverse('builder:new_player'))
-"""
-
-# TODO: Permissions
-# TODO: Deck / card removing - only from owner
-
-# TODO: View card from deck - not from API (new template, url, view)
-# TODO: Re-adding card into the same deck
-# TODO: Re-adding card into the another deck

@@ -9,9 +9,7 @@
 
      Owner: <select name="player_id" size="1">
      {% for player in players %}
-         {% if player.username != 'admin' %}
              <option value="{{player.id}}"> {{player.username}} </option>
-         {% endif %}
      {% endfor %}
     </select><br><br><br>
 

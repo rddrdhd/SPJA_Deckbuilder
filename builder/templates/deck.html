@@ -1,10 +1,11 @@
  {% extends "base.html" %}
  {% block content %}
- <span style="font-weight:normal">{{deck.owner.username}}'s</span>
- <h2>{{deck.deck_name}}</h2>
+
  <table>
    <tr>
     <th>
+      <span style="font-weight:normal">{{deck.owner.username}}'s</span>
+ <h2>{{deck.deck_name}}</h2>
      {% for card in cards %}
       <li>
        <a href="{% url 'builder:detail' card.card_id %}" style="text-decoration: none">
@@ -16,6 +17,16 @@
        </a>
       </li>
      {% endfor %}
+     <br><br><br><br><br>
+       <span style="font-weight:normal;">delete deck</span>
+       <a href="{% url 'builder:delete_deck' deck.id %}" style="text-decoration: none" >
+     <span style="font-weight:normal;">
+      <h1>☠</h1>
+     </span>
+      </a>
+    </th>
+    <th>
+
     </th>
    </tr>
  </table>

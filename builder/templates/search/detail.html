@@ -9,20 +9,7 @@
                      {% for key, value in card_data.items %}
                         {% if key == 'text' or key == 'flavor' %}
                             <li><strong>{{key}}</strong> : <p>{{value}}</p> </li>
-                        {% elif key == 'id' or
-                                key == 'legalities' or
-                                key == 'printings' or
-                                key == 'originalText' or
-                                key == 'multiverseid' or
-                                key == 'imageUrl' or
-                                key == 'set' or
-                                key == 'rulings' or
-                                key == 'originalType' or
-                                key == 'layout' or
-                                key == 'originalType' or
-                                ey == 'types' or
-                                key == 'subTypes' or
-                                key == 'foreignNames' %}
+                        {% elif key == 'id' or key == 'legalities' or key == 'printings' or key == 'originalText' or key == 'multiverseid' or key == 'imageUrl' or key == 'set' or key == 'rulings' or key == 'originalType' or key == 'layout' or key == 'originalType' or key == 'types' or key == 'subTypes' or key == 'foreignNames' %}
                         {% else %}
                             <li><strong>{{key}}</strong> : {{value}} </li>
                         {% endif %}

@@ -5,6 +5,7 @@ import requests
 from django.contrib.auth.models import User
 from django.views import generic
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate
 
 
 # --------------------------------   MAH FUNCS
@@ -84,6 +85,7 @@ def decks(request):
 def deck(request, deck_id):
     d = Deck.objects.get(id=deck_id)
     c = d.get_cards()
+    #   TODO https://stackoverflow.com/questions/12615154/how-to-get-the-currently-logged-in-users-user-id-in-django
     return render(request, 'deck.html', {'deck': d, 'cards': c})
 
 
@@ -142,7 +144,7 @@ def player(request, player_id):
     decks = Deck.objects.filter(owner=player_id)
     return render(request, 'player/player.html', {'player': player, 'decks': decks})
 
-
+"""
 def new_player(request):
     return render(request, 'player/new_player.html')
 
@@ -158,6 +160,7 @@ def new_player_submit(request):
         return HttpResponseRedirect(reverse('builder:players'))
     else:
         return HttpResponseRedirect(reverse('builder:new_player'))
+"""
 
 # TODO: Permissions
 # TODO: Deck / card removing - only from owner

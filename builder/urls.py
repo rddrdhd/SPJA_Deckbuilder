@@ -15,8 +15,8 @@ urlpatterns = [
     path('players/', views.players, name='players'),  # all players
     path('player/<int:player_id>', views.player, name='player'),  # detail of player
 
-    path('new_player/', views.new_player, name='new_player'),  # new player
-    path('new_player_submit/', views.new_player_submit, name='new_player_submit'),  # new player
+    #path('new_player/', views.new_player, name='new_player'),
+    #path('new_player_submit/', views.new_player_submit, name='new_player_submit'),
 
     path('decks/', views.decks, name='decks'),  # all decks
     path('deck/<int:deck_id>', views.deck, name='deck'),  # detail of deck

@@ -42,8 +42,10 @@
                 </tr>
                 <tr>
                     <th style="vertical-align: top;"><br><br>
+
                         {% if user.is_authenticated %}
                             Hi {{ user.username }}! <br><br>
+
                         {% else %}
                             <p>You are not logged in</p>
                             <a href="{% url 'login' %}"><button class="btn">Login</button></a><br><br>

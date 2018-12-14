@@ -85,8 +85,11 @@ def decks(request):
 def deck(request, deck_id):
     d = Deck.objects.get(id=deck_id)
     c = d.get_cards()
+    userid = None
+    if request.user.is_authenticated:
+        userid = request.user.id
     #   TODO https://stackoverflow.com/questions/12615154/how-to-get-the-currently-logged-in-users-user-id-in-django
-    return render(request, 'deck.html', {'deck': d, 'cards': c})
+    return render(request, 'deck.html', {'deck': d, 'cards': c, 'userid': userid})
 
 
 # Leads to 'add card to existing deck' and sending card_id & all decks

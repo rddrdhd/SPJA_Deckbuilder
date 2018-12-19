@@ -94,7 +94,6 @@ def deck(request, deck_id):
     if request.user.is_authenticated:
         userid = request.user.id
     comments = Comment.objects.filter(to_deck=deck_id)
-    #   TODO https://stackoverflow.com/questions/12615154/how-to-get-the-currently-logged-in-users-user-id-in-django
     return render(request, 'deck/deck.html', {'deck': d, 'cards': c, 'userid': userid, 'comments': comments})
 
 
